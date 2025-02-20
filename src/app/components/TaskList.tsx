@@ -42,39 +42,26 @@ export function TaskList({ tasks }: TaskListProps) {
   }
 
 return (
-  <ul className="divide-y divide-gray-200 dark:divide-gray-700">
-    {tasks.map((task) => (
-      <li
-        key={task.id}
-        className="py-4 hover:bg-gray-50 dark:hover:bg-gray-800 transition duration-150 ease-in-out"
-        role="listitem"
-      >
-        <div className="flex items-center space-x-4">
-          <div className="flex-shrink-0">{getStatusIcon(task.status)}</div>
-          <div className="flex-1 min-w-0">
-            <p className="text-sm font-medium text-gray-900 dark:text-gray-100 truncate">{task.title}</p>
-            <p className="text-sm text-gray-500 dark:text-gray-400 truncate">{task.description}</p>
-          </div>
-          <div className="flex space-x-2">
-            <Link
-              href={`/tasks/${task.id}`}
-              className="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300"
-              aria-label={`Edit task: ${task.title}`}
-            >
-              <Edit className="h-5 w-5" />
-            </Link>
-            <button
-              onClick={() => handleDelete(task.id)}
-              className="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300"
-              aria-label={`Delete task: ${task.title}`}
-            >
-              <Trash2 className="h-5 w-5" />
-            </button>
-          </div>
-        </div>
-      </li>
-    ))}
-  </ul>
+<ul className="task-list">
+  {tasks.map((task) => (
+    <li key={task.id} className="task-card">
+      <div className="task-header">
+        <div className="status-icon">{getStatusIcon(task.status)}</div>
+        <div className="task-title">{task.title}</div>
+        <div className="task-desc">{task.description}</div>
+      </div>
+
+      <div className="task-action-btns">
+        <Link href={`/tasks/${task.id}`} className="task-action-btn edit">
+          <Edit />
+        </Link>
+        <button onClick={() => handleDelete(task.id)} className="task-action-btn delete">
+          <Trash2 />
+        </button>
+      </div>
+    </li>
+  ))}
+</ul>
 )
 
 }

@@ -24,12 +24,14 @@ export default function RootLayout({
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <TaskProvider>
-            <div className="flex h-screen overflow-hidden">
-              <Sidebar />
-              <div className="flex flex-col flex-1 overflow-hidden">
-                <Header />
-                <main className="flex-1 overflow-y-auto">
-                  <div className="container mx-auto py-6 px-4 sm:px-6 lg:px-8">{children}</div>
+            <div className="layout">
+              <div className="sidebar">
+                <Sidebar />
+              </div>
+              <div className="main-container">
+                <Header/>
+                <main className="main-content">
+                  <div className="inner-container">{children}</div>
                 </main>
               </div>
             </div>
@@ -39,4 +41,3 @@ export default function RootLayout({
     </html>
   )
 }
-
