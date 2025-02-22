@@ -12,7 +12,7 @@ export function Dashboard() {
   const totalTasks = tasks.length
   const completedTasks = tasks.filter((task) => task.status === "completed").length
   const pendingTasks = tasks.filter((task) => task.status === "pending").length
-  const inProgressTasks = tasks.filter((task) => task.status === "in-progress").length
+  const inProgressTasks = tasks.filter((task) => task.status === "in_progress").length
 
   const data = {
     labels: ["Completed", "Pending", "In Progress"],

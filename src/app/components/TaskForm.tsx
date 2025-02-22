@@ -7,7 +7,7 @@ import { z } from "zod"
 const taskSchema = z.object({
   title: z.string().min(1, "Title is required"),
   description: z.string().optional(),
-  status: z.enum(["pending", "in-progress", "completed"]),
+  status: z.enum(["pending", "in_progress", "completed"]),
 })
 
 type TaskFormData = z.infer<typeof taskSchema>
@@ -56,7 +56,7 @@ export function TaskForm({ onSubmit, initialData }: TaskFormProps) {
       className="form-select"
     >
       <option value="pending">Pending</option>
-      <option value="in-progress">In Progress</option>
+      <option value="in_progress">In Progress</option>
       <option value="completed">Completed</option>
     </select>
   </div>

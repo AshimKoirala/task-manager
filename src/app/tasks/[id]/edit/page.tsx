@@ -6,7 +6,7 @@ import { useEffect, useState } from "react"
 
 interface TaskInput {
   title: string
-  status: "pending" | "in-progress" | "completed"
+  status: "pending" | "in_progress" | "completed"
   description?: string
 }
 
