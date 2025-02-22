@@ -5,8 +5,8 @@ export function MainNav({ ...props }: React.HTMLAttributes<HTMLElement>) {
   return (
     <nav {...props}>
       <Link href="/">Dashboard</Link>
-      <Link href="/tasks">Tasks</Link>
-      <Link href="/analytics"> Analytics</Link>
+      <Link href="/">Tasks</Link>
+      <Link href="/"> Analytics</Link>
     </nav>
   )
 }
