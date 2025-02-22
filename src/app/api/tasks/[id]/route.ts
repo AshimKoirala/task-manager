@@ -32,6 +32,12 @@ export async function PUT(request: Request, { params }: { params: { id: string }
 
 export async function DELETE(_: Request, { params }: { params: { id: string } }) {
   try {
+    const task = await prisma.task.findUnique({
+      where: { id: params.id }
+    })
+    if (!task) {
+      return NextResponse.json({ error: "Task not found" }, { status: 404 })
+    }
     await prisma.task.delete({
       where: { id: params.id },
     })

@@ -7,6 +7,10 @@ export async function GET(request: NextRequest) {
   const limit = Number.parseInt(searchParams.get("limit") || "10", 10)
   const search = searchParams.get("search") || undefined
 
+  if (page <= 0 || limit <= 0) {
+    return NextResponse.json({ error: "Page and limit must be positive numbers" }, { status: 400 })
+  }
+
   const skip = (page - 1) * limit
 
   try {
@@ -52,6 +56,11 @@ export async function GET(request: NextRequest) {
 export async function POST(request: Request) {
   try {
     const json = await request.json()
+
+    if (!json.title) {
+      return NextResponse.json({ error: "Title is required" }, { status: 400 })
+    }
+
     const task = await prisma.task.create({
       data: json,
     })
