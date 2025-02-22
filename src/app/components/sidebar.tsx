@@ -2,8 +2,6 @@
 import React from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { cn } from "@/lib/utils"
-import { ScrollArea } from "@/components/ui/scroll-area"
 import { LayoutDashboard, CheckSquare, BarChart2, Settings } from "lucide-react"
 
 const sidebarNavItems = [
@@ -35,8 +33,10 @@ export function Sidebar() {
   return (
     <aside className="sidebar">
   <div className="sidebar-header">
-    <LayoutDashboard className="icon" />
-    <span>Task Manager</span>
+      <Link className="icon" href="/">
+      <LayoutDashboard />
+        <span >Task Manager</span>
+      </Link>
   </div>
 
   <nav className="sidebar-nav">

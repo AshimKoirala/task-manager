@@ -4,12 +4,10 @@ import { useEffect } from "react"
 import Link from "next/link"
 import { TaskList } from "./components/TaskList"
 import { useTaskContext } from "./context/TaskContext"
-// import { SearchBar } from "./components/SearchBar"
-// import { Pagination } from "./components/Pagination"
 import { Dashboard } from "./components/Dashboard"
 
 export default function Home() {
-  const { tasks, setTasks, totalTasks, setTotalTasks, currentPage, searchTerm } = useTaskContext()
+  const { tasks, setTasks, setTotalTasks, currentPage, searchTerm } = useTaskContext()
 
   useEffect(() => {
     const fetchTasks = async () => {
@@ -35,11 +33,8 @@ export default function Home() {
       Create New Task
     </Link>
   </div>
-  {/* <SearchBar /> */}
   <TaskList tasks={tasks} />
-  {/* <Pagination totalItems={totalTasks} itemsPerPage={10} /> */}
 </div>
-
     </div>
   )
 }

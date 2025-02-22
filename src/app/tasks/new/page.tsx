@@ -3,10 +3,16 @@
 import { useRouter } from "next/navigation"
 import { TaskForm } from "@/app/components/TaskForm"
 
+interface TaskInput {
+  title: string
+  status: "pending" | "in-progress" | "completed"
+  description?: string
+}
+
 export default function NewTask() {
   const router = useRouter()
 
-  const handleSubmit = async (data: any) => {
+  const handleSubmit = async (data: TaskInput) => {
     const response = await fetch("/api/tasks", {
       method: "POST",
       headers: {
@@ -18,7 +24,6 @@ export default function NewTask() {
     if (response.ok) {
       router.push("/")
     } else {
-      // Handle error
       console.error("Failed to create task")
     }
   }

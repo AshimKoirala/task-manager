@@ -4,37 +4,50 @@ import { useRouter } from "next/navigation"
 import { TaskForm } from "@/app/components/TaskForm"
 import { useEffect, useState } from "react"
 
+interface TaskInput {
+  title: string
+  status: "pending" | "in-progress" | "completed"
+  description?: string
+}
+
+interface Task extends TaskInput {
+  id: string
+  createdAt: string
+}
+
 export default function EditTask({ params }: { params: { id: string } }) {
   const router = useRouter()
-  const [task, setTask] = useState<any>(null)
+  const [task, setTask] = useState<Task | null>(null)
 
   useEffect(() => {
     const fetchTask = async () => {
-      const response = await fetch(`/api/tasks/${params.id}`)
-      if (response.ok) {
+      try {
+        const response = await fetch(`/api/tasks/${params.id}`)
+        if (!response.ok) {
+          throw new Error("Failed to fetch task")
+        }
         const data = await response.json()
-        setTask(data)
-      } else {
-        console.error("Failed to fetch task")
+        setTask({ ...data, status: data.status || "pending" }) // Ensure status exists
+      } catch (error) {
+        console.error("Error fetching task:", error)
       }
     }
     fetchTask()
   }, [params.id])
 
-  const handleSubmit = async (data: any) => {
-    const response = await fetch(`/api/tasks/${params.id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-
-    if (response.ok) {
+  const handleSubmit = async (data: TaskInput) => {
+    try {
+      const response = await fetch(`/api/tasks/${params.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      })
+      if (!response.ok) {
+        throw new Error("Failed to update task")
+      }
       router.push("/")
-    } else {
-      // Handle error
-      console.error("Failed to update task")
+    } catch (error) {
+      console.error("Error updating task:", error)
     }
   }
 
@@ -49,4 +62,3 @@ export default function EditTask({ params }: { params: { id: string } }) {
     </div>
   )
 }
-
